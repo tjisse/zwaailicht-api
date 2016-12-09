@@ -3,7 +3,7 @@
   :url "https://github.com/tjisse/zwaailicht-api"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/core.async "0.2.395"]
+                 [proto-repl "0.3.1"]
                  [compojure "1.5.1"]
                  [ring/ring-devel "1.5.0"]
                  [ring/ring-defaults "0.2.1"]

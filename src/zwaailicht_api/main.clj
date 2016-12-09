@@ -22,5 +22,4 @@
       (:help options) (exit 0 summary)
       errors (exit 1 (string/join \newline errors)))
     (let [serial (connect! (get options :port) 57600 1000)]
-      (println (bitlash-funs-up-to-date? "def_bitlash_funs.script" serial))
       (run-server http-handler {:port 8080}))))
