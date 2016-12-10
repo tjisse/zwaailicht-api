@@ -1,11 +1,10 @@
 (ns zwaailicht-api.main
-  (:require
-    [org.httpkit.server :refer [run-server]]
-    [zwaailicht-api.server :refer [http-handler]]
-    [zwaailicht-api.serial :refer :all]
-    [clojure.tools.cli :refer [parse-opts]]
-    [clojure.string :as string]
-    (:gen-class)))
+  (:require [org.httpkit.server :refer [run-server]]
+            [zwaailicht-api.server :refer [http-handler]]
+            [zwaailicht-api.serial :refer :all]
+            [clojure.tools.cli :refer [parse-opts]]
+            [clojure.string :as string])
+  (:gen-class))
 
 (def cli-options
   [["-p" "--port PORT" "COM port"
@@ -21,5 +20,5 @@
     (cond
       (:help options) (exit 0 summary)
       errors (exit 1 (string/join \newline errors)))
-    (let [serial (connect! (get options :port) 57600 1000)]
-      (run-server http-handler {:port 8080}))))
+    (connect! (get options :port) 57600)
+    (run-server http-handler {:port 8080})))
