@@ -12,14 +12,17 @@
 
 (defn disconnect! [serial-conn]
   (serial/close! serial-conn)
-  (swap! state assoc :conn nil))
+  (swap! state assoc :conn nil)
+  nil)
 
 (defn- execute-command! [command serial-conn]
-  (serial/write serial-conn (.getBytes (str command \newline))))
+  (serial/write serial-conn (.getBytes (str command \newline)))
+  nil)
 
 (defn set-state! [new-state]
   (let [serial-conn (get @state :conn)]
     (if (.contains ["on" "off"] new-state)
-      ((execute-command! new-state serial-conn)
-       (reset! state new-state))
-      (::invalid-state))))
+      (do (execute-command! new-state serial-conn)
+          (swap! state assoc :state new-state)
+          nil)
+      ::invalid-state)))

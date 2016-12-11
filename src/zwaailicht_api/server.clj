@@ -11,7 +11,7 @@
 
 (defroutes app-routes
            (GET "/" [] (get @serial/state :state))
-           (POST "/" {new-state :body} (handle-state-post new-state))
+           (POST "/" {new-state :body} (handle-state-post (slurp new-state)))
            (route/not-found "Not Found"))
 
 (def http-handler
